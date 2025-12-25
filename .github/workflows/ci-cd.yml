@@ -1,32 +1,11 @@
-name: CI/CD Pipeline
+flowchart LR
+    Dev[Developer]
 
-on:
-  push:
-    branches: [ "main", "feature/*" ]
+    Dev -->|git push| GitHub[GitHub Repository]
 
-jobs:
-  build-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run tests
-        run: echo "Running unit tests..."
-
-      - name: Lint code
-        run: echo "Lint check passed"
-
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Docker image
-        run: echo "Docker image built"
-
-      - name: Push image
-        run: echo "Pushed to registry"
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Staging
-        run: echo "Deployed to staging"
+    GitHub --> CI[GitHub Actions CI]
+    CI --> Test[Unit Tests & Lint]
+    Test --> Scan[Security Scan]
+    Scan --> Build[Docker Build]
+    Build --> Registry[Docker Registry]
+    Registry --> Deploy[Deploy to Staging]
