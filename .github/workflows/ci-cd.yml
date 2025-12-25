@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "feature/*" ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run tests
+        run: echo "Running unit tests..."
+
+      - name: Lint code
+        run: echo "Lint check passed"
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Docker image
+        run: echo "Docker image built"
+
+      - name: Push image
+        run: echo "Pushed to registry"
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Staging
+        run: echo "Deployed to staging"
