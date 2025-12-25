@@ -1,21 +1,14 @@
-📊 Project Diagrams
+graph LR
+    Client((Client / Browser)) -->|HTTPS| UI[Web UI<br/>React / Next.js]
 
-Бұл бөлімде жобаның құрылымы мен жұмыс процесі көрсетілген.
+    UI -->|REST / JSON| API[Application API<br/>Go Backend]
 
----
+    API -->|Read / Write| DB[(Main DB<br/>PostgreSQL)]
+    API -->|Session / Cache| Cache[(In-Memory Cache<br/>Redis)]
 
-### 🏗️ 1. Жүйе Архитектурасы (System Architecture)
-Бұл диаграмма пайдаланушы мен сервердің өзара әрекеттесуін көрсетеді:
-
-```mermaid
-graph TD
-    User((Пайдаланушы)) -- Browse --> FE[Frontend: Next.js]
-    FE -- API Request --> BE[Backend: Go/Python]
-    BE -- SQL --> DB[(Database: PostgreSQL)]
-    BE -- Cache --> RD((Redis))
-    
-    subgraph Cloud_Infrastructure
-        BE
+    subgraph Cloud_Native_Environment
+        UI
+        API
         DB
-        RD
+        Cache
     end
