@@ -1,6 +1,21 @@
-flowchart LR
-    Code[Source Code]
-    Code --> Dev[Dev Environment]
-    Dev --> Stage[Stage Environment]
-    Stage --> Prod[Production Environment]
-
++-------------------+
+|   User / Browser  |
++---------+---------+
+          |
+          v
++-------------------+
+|   Frontend        |
+|   (Next.js)       |
++---------+---------+
+          |
+          v
++-------------------+
+|   Backend API     |
+|   (Go / REST)     |
++----+---------+----+
+     |         |
+     v         v
++---------+ +---------+
+| Database| |  Cache  |
+|Postgres | | Redis  |
++---------+ +---------+
